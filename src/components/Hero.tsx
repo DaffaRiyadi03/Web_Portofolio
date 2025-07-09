@@ -1,131 +1,137 @@
-import React, { useRef } from 'react';
-import { motion, useInView, Variants, Transition } from 'framer-motion';
-import { 
-  Download, Mail, Github, Linkedin, ArrowRight,
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, Mail, X } from 'lucide-react';
+import ProfileCard from './ProfileCard';
+
+// ## PERUBAHAN DI SINI: Impor PDF sebagai modul ##
+import cvPdfUrl from '/asset/CV_MuhammadDaffaRiyadi.pdf'; // Sesuaikan path jika perlu
 
 const Hero: React.FC = () => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: '-10%' });
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const name = "Muhammad Daffa Riyadi";
-    const words = name.split(" ");
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
-    const container: Variants = {
-        hidden: { opacity: 0 },
-        visible: (i = 1) => ({
-            opacity: 1,
-            transition: { staggerChildren: 0.03, delayChildren: 0.2 * i },
-        }),
+    const handleContactClick = () => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
-    const child: Variants = {
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: "spring",
-                damping: 12,
-                stiffness: 100,
-            } as Transition,
-        },
-        hidden: {
-            opacity: 0,
-            y: 20,
-            transition: {
-                type: "spring",
-                damping: 12,
-                stiffness: 100,
-            } as Transition,
-        },
+    const modalVariants = {
+        hidden: { opacity: 0, scale: 0.9 },
+        visible: { opacity: 1, scale: 1 },
+        exit: { opacity: 0, scale: 0.9 }
     };
 
     return (
-        <section id="hero" className="min-h-screen pt-16 flex items-center justify-center text-center relative overflow-hidden px-4">
-            <div className="max-w-4xl mx-auto relative z-10">
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    className="relative inline-block mb-8"
-                >
-                    <div className="w-40 h-40 md:w-48 md:h-48 mx-auto rounded-full overflow-hidden border-4 border-slate-700/50 shadow-2xl shadow-cyan-500/10">
-                        <img
-                            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400"
-                            alt="Profile"
-                            className="w-full h-full object-cover"
+        <>
+            <section 
+                id="hero" 
+                className="min-h-screen pt-32 flex items-center justify-center text-center relative overflow-hidden px-4"
+            >
+                <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
+                    
+                    {/* Profile Card */}
+                    <motion.div
+                        initial={{ opacity: 0, y: -50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    >
+                        <ProfileCard 
+                            avatarUrl="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400"
+                            onContactClick={handleContactClick}
+                            showUserInfo={true}
+                            enableTilt={true}
                         />
-                    </div>
-                    <div className="absolute -inset-1 w-40 h-40 md:w-48 md:h-48 mx-auto rounded-full ring-4 ring-cyan-400/40 animate-pulse"></div>
-                </motion.div>
+                    </motion.div>
 
-                <motion.h1
-                    ref={ref}
-                    className="text-5xl md:text-7xl font-bold mb-4 overflow-hidden flex flex-wrap justify-center items-center"
-                    variants={container}
-                    initial="hidden"
-                    animate={isInView ? 'visible' : 'hidden'}
-                >
-                    {words.map((word, wordIndex) => (
-                        <span key={wordIndex} className="inline-block whitespace-nowrap mr-4 last:mr-0">
-                            {word.split('').map((letter, letterIndex) => (
-                                <motion.span
-                                    key={`${wordIndex}-${letterIndex}`}
-                                    variants={child}
-                                    className={`inline-block ${word === "Riyadi" ? 'text-cyan-400' : 'text-white'}`}
-                                >
-                                    {letter}
-                                </motion.span>
-                            ))}
-                        </span>
-                    ))}
-                </motion.h1>
-                
-                <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1.2 }}
-                    className="text-lg md:text-xl text-slate-400 mb-8"
-                >
-                    Informatics Student & Aspiring <span className="text-cyan-400 font-medium">Full-Stack Developer</span>
-                </motion.p>
+                    {/* Nama dan Judul */}
+                    <motion.div 
+                        className="text-center mt-8 mb-8"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                    >
+                        <h1 className="text-4xl md:text-5xl font-bold text-white">
+                            <span className="text-cyan-400 font-bold">Muhammad Daffa Riyadi</span>
+                        </h1>
+                        <p className="text-lg md:text-xl text-slate-400 mt-2">
+                            Informatic Engineering | Fron End Web & Mobile Developer
+                        </p>
+                    </motion.div>
+                    
+                    {/* Tombol View CV */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 1.0 }}
+                        className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10"
+                    >
+                        <button 
+                            onClick={openModal}
+                            className="group relative inline-flex items-center justify-center px-8 py-3 text-base font-bold text-slate-300 bg-slate-800/50 rounded-lg border border-slate-700 hover:bg-slate-800 transition-colors duration-300"
+                        >
+                            View CV
+                        </button>
+                    </motion.div>
 
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1.4 }}
-                    className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10"
-                >
-                    <a href="#contact" className="group relative inline-flex items-center justify-center px-8 py-3 text-base font-bold text-white bg-cyan-500 rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:bg-cyan-600 shadow-lg shadow-cyan-500/20">
-                        <span className="absolute left-0 top-0 w-full h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-                        <span className="relative flex items-center gap-2">
-                            Get In Touch <ArrowRight size={20} />
-                        </span>
-                    </a>
-                    <a href="/path-to-your-cv.pdf" download className="group relative inline-flex items-center justify-center px-8 py-3 text-base font-bold text-slate-300 bg-slate-800/50 rounded-lg border border-slate-700 hover:bg-slate-800 transition-colors duration-300">
-                        <Download size={20} className="mr-2" />
-                        Download CV
-                    </a>
-                </motion.div>
+                    {/* Ikon Sosial Media */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 1.2 }}
+                        className="flex justify-center gap-6"
+                    >
+                        <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
+                            <Github size={24} />
+                        </a>
+                        <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
+                            <Linkedin size={24} />
+                        </a>
+                        <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
+                            <Mail size={24} />
+                        </a>
+                    </motion.div>
+                </div>
+            </section>
 
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1.6 }}
-                    className="flex justify-center gap-6"
-                >
-                    <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
-                        <Github size={24} />
-                    </a>
-                    <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
-                        <Linkedin size={24} />
-                    </a>
-                    <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
-                        <Mail size={24} />
-                    </a>
-                </motion.div>
-            </div>
-        </section>
+            {/* Modal untuk menampilkan PDF */}
+            <AnimatePresence>
+                {isModalOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4"
+                        onClick={closeModal}
+                    >
+                        <motion.div
+                            variants={modalVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="bg-slate-900 rounded-lg p-2 relative w-full max-w-4xl h-[90vh] flex flex-col"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button 
+                                onClick={closeModal}
+                                className="absolute top-3 right-3 text-slate-400 hover:text-white transition-colors z-20 bg-slate-800 rounded-full p-1"
+                            >
+                                <X size={24} />
+                            </button>
+                            <iframe 
+                                src={cvPdfUrl} 
+                                title="CV Muhammad Daffa Riyadi"
+                                className="w-full h-full rounded-md border-0"
+                            />
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 };
 
