@@ -10,15 +10,25 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Education />
-      <Projects />
-      <Contact />
-      <Footer />
+    <div className="min-h-screen bg-slate-900 text-slate-300">
+      {/* Efek latar belakang Aurora */}
+      <div className="aurora-background">
+        <div className="aurora-dot"></div>
+        <div className="aurora-dot"></div>
+        <div className="aurora-dot"></div>
+      </div>
+      <div className="relative z-10">
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Education />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }

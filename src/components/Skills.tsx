@@ -1,128 +1,87 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView, Variants, Transition } from 'framer-motion';
+import { 
+  Menu, X, Code, Download, Mail, Github, Linkedin, ArrowRight, 
+  Briefcase, Lightbulb, Target, Users, GraduationCap, Calendar, 
+  MapPin, Send, Heart, ExternalLink 
+} from 'lucide-react';
 
 const Skills: React.FC = () => {
-  const skillCategories = [
-    {
-      title: "Programming Languages",
-      skills: [
-        { 
-          name: "JavaScript", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-        },
-        { 
-          name: "Python", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-        },
-        { 
-          name: "Java", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-        },
-        { 
-          name: "PHP", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
-        },
-        { 
-          name: "C++", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
-        }
-      ]
-    },
-    {
-      title: "Web Technologies",
-      skills: [
-        { 
-          name: "React", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-        },
-        { 
-          name: "HTML5", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-        },
-        { 
-          name: "CSS3", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
-        },
-        { 
-          name: "Laravel", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg"
-        },
-        { 
-          name: "Node.js", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-        },
-        { 
-          name: "MySQL", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-        }
-      ]
-    },
-    {
-      title: "Tools & Frameworks",
-      skills: [
-        { 
-          name: "Git", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-        },
-        { 
-          name: "Bootstrap", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
-        },
-        { 
-          name: "Tailwind CSS", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg"
-        },
-        { 
-          name: "Figma", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
-        },
-        { 
-          name: "VS Code", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg"
-        },
-        { 
-          name: "GitHub", 
-          logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
-        }
-      ]
-    }
-  ];
+    const skills = [
+        { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+        { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+        { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "PHP", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" },
+        { name: "Laravel", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg" },
+        { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+        { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
+        { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+        { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+        { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+    ];
 
-  return (
-    <section id="skills" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Skills</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Technologies and tools I work with
-          </p>
-        </div>
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <h3 className="text-xl font-bold text-gray-900 mb-8 text-center">{category.title}</h3>
-              <div className="grid grid-cols-2 gap-6">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="flex flex-col items-center group">
-                    <div className="w-16 h-16 mb-3 flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors duration-300">
-                      <img 
-                        src={skill.logo} 
-                        alt={skill.name}
-                        className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
-                      />
-                    </div>
-                    <span className="text-sm font-medium text-gray-700 text-center group-hover:text-blue-600 transition-colors duration-300">
-                      {skill.name}
-                    </span>
-                  </div>
-                ))}
-              </div>
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 }
+    };
+
+    return (
+        <section id="skills" className="py-24 bg-slate-900/50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <motion.div 
+                    className="text-center mb-16"
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 gradient-text">Tools & Technologies</h2>
+                    <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+                        Kumpulan teknologi yang saya gunakan untuk mengubah ide menjadi produk digital.
+                    </p>
+                </motion.div>
+
+                <motion.div 
+                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
+                    {skills.map((skill, index) => (
+                        <motion.div 
+                            key={index} 
+                            className="group flex flex-col items-center gap-4"
+                            variants={itemVariants}
+                        >
+                            <div className="w-24 h-24 p-5 flex items-center justify-center bg-slate-800/50 rounded-2xl border border-slate-700/80 group-hover:border-cyan-400/50 group-hover:bg-slate-800 transition-all duration-300">
+                                <img 
+                                    src={skill.logo} 
+                                    alt={skill.name}
+                                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                                />
+                            </div>
+                            <span className="text-sm font-medium text-slate-300 group-hover:text-cyan-400 transition-colors duration-300">
+                                {skill.name}
+                            </span>
+                        </motion.div>
+                    ))}
+                </motion.div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Skills;
