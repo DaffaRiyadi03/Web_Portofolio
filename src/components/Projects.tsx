@@ -51,7 +51,7 @@ const Projects: React.FC = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 gradient-text">My Projects</h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-            Beberapa proyek pilihan yang telah saya kerjakan.
+            Some selected projects that I have worked on.
           </p>
         </motion.div>
 

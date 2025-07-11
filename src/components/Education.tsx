@@ -12,9 +12,8 @@ const Education: React.FC = () => {
     institution: "Universitas Pasundan",
     location: "Bandung, Jawa Barat",
     period: "2022 - Sekarang",
-    description: "Mempelajari dasar-dasar ilmu komputer, pengembangan perangkat lunak, dan teknologi web. Aktif dalam proyek-proyek akademis dan mandiri untuk mengasah keterampilan praktis.",
+    description: "Learn the fundamentals of computer science, software development and web technologies. Be active in academic and independent projects to hone practical skills.",
     gpa: "3.55/4.0",
-    relevantCourses: ["Struktur Data", "Rekayasa Perangkat Lunak", "Basis Data", "Pengembangan Web", "OOP"]
   };
 
   return (
@@ -29,7 +28,7 @@ const Education: React.FC = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 gradient-text">Education</h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-            Perjalanan akademis dan landasan pengetahuan saya.
+            My academic journey and knowledge base.
           </p>
         </motion.div>
 
@@ -57,17 +56,6 @@ const Education: React.FC = () => {
               </div>
               
               <p className="text-slate-300 leading-relaxed mb-6">{education.description}</p>
-              
-              <div>
-                <h4 className="text-sm font-semibold text-white mb-3">Relevant Courses:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {education.relevantCourses.map((course, courseIndex) => (
-                    <span key={courseIndex} className="bg-slate-700 text-slate-300 px-3 py-1 rounded-full text-xs">
-                      {course}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>

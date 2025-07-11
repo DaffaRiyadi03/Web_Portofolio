@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
           <div className="flex-shrink-0">
              <a href="#hero" className="flex items-center gap-2" onClick={(e) => { e.preventDefault(); scrollToSection('#hero');}}>
                 <Code className="w-8 h-8 text-cyan-400" />
-                <span className="text-2xl font-bold text-white">DaffaRiyadi</span>
+                <span className="text-2xl font-bold text-white">Portofolio</span>
             </a>
           </div>
           

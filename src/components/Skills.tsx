@@ -49,7 +49,7 @@ const Skills: React.FC = () => {
                 >
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 gradient-text">Tools & Technologies</h2>
                     <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                        Kumpulan teknologi yang saya gunakan untuk mengubah ide menjadi produk digital.
+                        A collection of technologies that I use to turn ideas into digital products.
                     </p>
                 </motion.div>
 

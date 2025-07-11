@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
                             <span className="text-cyan-400 font-bold">Muhammad Daffa Riyadi</span>
                         </h1>
                         <p className="text-lg md:text-xl text-slate-400 mt-2">
-                            Informatic Engineering | Fron End Web & Mobile Developer
+                            Informatic Engineering | Front End Web & Mobile Developer
                         </p>
                     </motion.div>
                     
@@ -84,13 +84,17 @@ const Hero: React.FC = () => {
                         transition={{ duration: 0.8, delay: 1.2 }}
                         className="flex justify-center gap-6"
                     >
-                        <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
+                        <a href="https://github.com/DaffaRiyadi03" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
                             <Github size={24} />
                         </a>
                         <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
                             <Linkedin size={24} />
                         </a>
-                        <a href="#" className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
+                        <a 
+                            href="https://mail.google.com/mail/?view=cm&fs=1&to=daffariyadi2003@gmail.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"  
+                            className="text-slate-400 hover:text-cyan-400 hover:scale-110 transition-all duration-200">
                             <Mail size={24} />
                         </a>
                     </motion.div>
